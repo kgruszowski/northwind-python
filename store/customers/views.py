@@ -1,6 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from .models import Categories
 
 def index(request):
-    return HttpResponse('Hello World')
+    categories = Categories.objects.all()
+
+    context = {
+        'categories': categories
+    }
+
+    return render(request, 'index.html', context)
