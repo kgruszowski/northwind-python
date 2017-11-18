@@ -8,4 +8,4 @@ def index(request):
         'categories': categories
     }
 
-    return render(request, 'index.html', context)
+    return render(request, 'dashboard.html', context)
