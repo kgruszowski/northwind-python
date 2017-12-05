@@ -116,12 +116,30 @@ class Orders(models.Model):
         managed = False
         db_table = 'orders'
 
+class Suppliers(models.Model):
+    supplierid = models.SmallIntegerField(primary_key=True)
+    companyname = models.CharField(max_length=40)
+    contactname = models.CharField(max_length=30, blank=True, null=True)
+    contacttitle = models.CharField(max_length=30, blank=True, null=True)
+    address = models.CharField(max_length=60, blank=True, null=True)
+    city = models.CharField(max_length=15, blank=True, null=True)
+    region = models.CharField(max_length=15, blank=True, null=True)
+    postalcode = models.CharField(max_length=10, blank=True, null=True)
+    country = models.CharField(max_length=15, blank=True, null=True)
+    phone = models.CharField(max_length=24, blank=True, null=True)
+    fax = models.CharField(max_length=24, blank=True, null=True)
+    homepage = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'suppliers'
+
 
 class Products(models.Model):
     productid = models.SmallIntegerField(primary_key=True)
     productname = models.CharField(max_length=40)
-    supplierid = models.ForeignKey('Suppliers', models.DO_NOTHING, db_column='supplierid', blank=True, null=True)
-    categoryid = models.ForeignKey(Categories, models.DO_NOTHING, db_column='categoryid', blank=True, null=True)
+    supplier = models.ForeignKey(Suppliers, models.DO_NOTHING, db_column='supplierid', blank=True, null=True)
+    category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='categoryid', blank=True, null=True)
     quantityperunit = models.CharField(max_length=20, blank=True, null=True)
     unitprice = models.FloatField(blank=True, null=True)
     unitsinstock = models.SmallIntegerField(blank=True, null=True)
@@ -151,25 +169,6 @@ class Shippers(models.Model):
     class Meta:
         managed = False
         db_table = 'shippers'
-
-
-class Suppliers(models.Model):
-    supplierid = models.SmallIntegerField(primary_key=True)
-    companyname = models.CharField(max_length=40)
-    contactname = models.CharField(max_length=30, blank=True, null=True)
-    contacttitle = models.CharField(max_length=30, blank=True, null=True)
-    address = models.CharField(max_length=60, blank=True, null=True)
-    city = models.CharField(max_length=15, blank=True, null=True)
-    region = models.CharField(max_length=15, blank=True, null=True)
-    postalcode = models.CharField(max_length=10, blank=True, null=True)
-    country = models.CharField(max_length=15, blank=True, null=True)
-    phone = models.CharField(max_length=24, blank=True, null=True)
-    fax = models.CharField(max_length=24, blank=True, null=True)
-    homepage = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'suppliers'
 
 
 class Territories(models.Model):

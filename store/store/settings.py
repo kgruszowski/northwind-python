@@ -38,12 +38,14 @@ INSTALLED_APPS = [
 
     # Custom Apps
     'customers.apps.CustomersConfig',
-    'admin.apps.AdminConfig'
+    'admin.apps.AdminConfig',
+    'debug_toolbar.apps.DebugToolbarConfig'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -101,9 +103,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    os.path.join(BASE_DIR, "static")
 ]
 
 # Custom settings
 APPEND_SLASH = False
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+INTERNAL_IPS = ['127.0.0.1', '::1']
