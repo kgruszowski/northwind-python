@@ -12,13 +12,13 @@ class Categories(models.Model):
 
 
 class Customercustomerdemo(models.Model):
-    customerid = models.ForeignKey('Customers', models.DO_NOTHING, db_column='customerid', primary_key=True)
-    customertypeid = models.ForeignKey('Customerdemographics', models.DO_NOTHING, db_column='customertypeid')
+    customer = models.ForeignKey('Customers', models.DO_NOTHING, db_column='customerid', primary_key=True)
+    customertype = models.ForeignKey('Customerdemographics', models.DO_NOTHING, db_column='customertypeid')
 
     class Meta:
         managed = False
         db_table = 'customercustomerdemo'
-        unique_together = (('customerid', 'customertypeid'),)
+        unique_together = (('customer', 'customertype'),)
 
 
 class Customerdemographics(models.Model):
@@ -74,18 +74,18 @@ class Employees(models.Model):
 
 
 class Employeeterritories(models.Model):
-    employeeid = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', primary_key=True)
-    territoryid = models.ForeignKey('Territories', models.DO_NOTHING, db_column='territoryid')
+    employee = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', primary_key=True)
+    territory = models.ForeignKey('Territories', models.DO_NOTHING, db_column='territoryid')
 
     class Meta:
         managed = False
         db_table = 'employeeterritories'
-        unique_together = (('employeeid', 'territoryid'),)
+        unique_together = (('employee', 'territory'),)
 
 
 class OrderDetails(models.Model):
-    orderid = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid', primary_key=True)
-    productid = models.ForeignKey('Products', models.DO_NOTHING, db_column='productid')
+    order = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid', primary_key=True)
+    product = models.ForeignKey('Products', models.DO_NOTHING, db_column='productid')
     unitprice = models.FloatField()
     quantity = models.SmallIntegerField()
     discount = models.FloatField()
@@ -93,13 +93,13 @@ class OrderDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'order_details'
-        unique_together = (('orderid', 'productid'),)
+        unique_together = (('order', 'product'),)
 
 
 class Orders(models.Model):
     orderid = models.SmallIntegerField(primary_key=True)
-    customerid = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
-    employeeid = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', blank=True, null=True)
+    customer = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
+    employee = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', blank=True, null=True)
     orderdate = models.DateField(blank=True, null=True)
     requireddate = models.DateField(blank=True, null=True)
     shippeddate = models.DateField(blank=True, null=True)
@@ -174,7 +174,7 @@ class Shippers(models.Model):
 class Territories(models.Model):
     territoryid = models.CharField(primary_key=True, max_length=20)
     territorydescription = models.CharField(max_length=255)
-    regionid = models.ForeignKey(Region, models.DO_NOTHING, db_column='regionid')
+    region = models.ForeignKey(Region, models.DO_NOTHING, db_column='regionid')
 
     class Meta:
         managed = False
