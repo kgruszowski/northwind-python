@@ -23,7 +23,6 @@ def products(request):
         data = form.cleaned_data
 
     if data is not None:
-        print(data)
         products = Products.objects.filter(productname__contains=data['name'])
     else:
         products = Products.objects.all()
