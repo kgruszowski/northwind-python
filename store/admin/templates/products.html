@@ -8,7 +8,7 @@
     </button>
 </h1>
 
-<form>
+<form>{% csrf_token %}
   <div class="form-group col-md-11">
       {{ form.name }}
   </div>
