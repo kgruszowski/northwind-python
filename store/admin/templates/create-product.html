@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>
+    Add new product
+</h1>
+
+<form method="POST">{% csrf_token %}
+  <div class="form-group col-md-11">
+      {{ form.as_p }}
+  </div>
+  <button type="submit" class="btn btn-primary col-md-1">Submit</button>
+</form>
+
+{% endblock %}

@@ -29,7 +29,7 @@
   <tbody>
     {% for product in products %}
         <tr class="{{ product.discontinued|yesno:'danger,success' }}">
-            <td>{{ product.productid }}</td>
+            <td>{{ product.id }}</td>
             <td>{{ product.productname }}</td>
             <td>{{ product.category.categoryname }}</td>
             <td>{{ product.unitprice }}</td>

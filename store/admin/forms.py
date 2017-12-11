@@ -1,5 +1,5 @@
 from django import forms
-from customers.models import Categories, Suppliers
+from customers.models import Categories, Suppliers, Products
 
 class SubmitSearchForm(forms.Form):
 
@@ -11,13 +11,9 @@ class SubmitSearchForm(forms.Form):
     name = forms.CharField(label='Search')
 
 
-class CreateProduct(forms.Form):
-    productname = forms.CharField(label='Product name')
-    supplier = forms.ModelChoiceField(queryset=Suppliers.objects.all())
-    category = forms.ModelChoiceField(queryset=Categories.objects.all())
-    quantityperunit = forms.CharField(label='Qty per unit')
-    unitprice = forms.CharField(label='Price')
-    unitsinstock = forms.CharField(label='Units in storck')
-    unitsonorder = forms.CharField(label='Uniets on order')
-    reorderlevel = forms.CharField(label='Reordered level')
-    discontinued = forms.CheckboxInput()
+class CreateProductForm(forms.ModelForm):
+
+    class Meta:
+        model = Products
+        fields = ['productid', 'productname', 'supplier', 'category', 'quantityperunit', 'unitprice', 'unitsinstock', 'unitsonorder',
+                  'reorderlevel', 'discontinued']

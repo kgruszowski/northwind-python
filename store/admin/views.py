@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from customers.models import Products
 from .forms import SubmitSearchForm
-from .forms import CreateProduct
+from .forms import CreateProductForm
 
 def index(request):
     all_products = Products.objects.all()
@@ -37,12 +37,12 @@ def products(request):
 
 def create_product(request):
 
-    form = CreateProduct()
-
     if request.method == 'POST':
-        form = CreateProduct(request.POST)
+        form = CreateProductForm(request.POST)
         if form.is_valid():
             new_product = form.save()
+    else:
+        form = CreateProductForm()
 
     context = {
         'form': form

@@ -1,7 +1,7 @@
 from django.db import models
 
 class Categories(models.Model):
-    categoryid = models.SmallIntegerField(primary_key=True)
+    categoryid = models.AutoField(primary_key=True)
     categoryname = models.CharField(max_length=15)
     description = models.TextField(blank=True, null=True)
     picture = models.BinaryField(blank=True, null=True)
@@ -31,7 +31,7 @@ class Customerdemographics(models.Model):
 
 
 class Customers(models.Model):
-    customerid = models.CharField(primary_key=True, max_length=5)
+    customerid = models.AutoField(primary_key=True)
     companyname = models.CharField(max_length=40)
     contactname = models.CharField(max_length=30, blank=True, null=True)
     contacttitle = models.CharField(max_length=30, blank=True, null=True)
@@ -49,7 +49,7 @@ class Customers(models.Model):
 
 
 class Employees(models.Model):
-    employeeid = models.SmallIntegerField(primary_key=True)
+    employeeid = models.AutoField(primary_key=True)
     lastname = models.CharField(max_length=20)
     firstname = models.CharField(max_length=10)
     title = models.CharField(max_length=30, blank=True, null=True)
@@ -97,7 +97,7 @@ class OrderDetails(models.Model):
 
 
 class Orders(models.Model):
-    orderid = models.SmallIntegerField(primary_key=True)
+    orderid = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
     employee = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', blank=True, null=True)
     orderdate = models.DateField(blank=True, null=True)
@@ -117,7 +117,7 @@ class Orders(models.Model):
         db_table = 'orders'
 
 class Suppliers(models.Model):
-    supplierid = models.SmallIntegerField(primary_key=True)
+    supplierid = models.AutoField(primary_key=True)
     companyname = models.CharField(max_length=40)
     contactname = models.CharField(max_length=30, blank=True, null=True)
     contacttitle = models.CharField(max_length=30, blank=True, null=True)
@@ -136,7 +136,7 @@ class Suppliers(models.Model):
 
 
 class Products(models.Model):
-    productid = models.SmallIntegerField(primary_key=True)
+    productid = models.AutoField(primary_key=True)
     productname = models.CharField(max_length=40)
     supplier = models.ForeignKey(Suppliers, models.DO_NOTHING, db_column='supplierid', blank=True, null=True)
     category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='categoryid', blank=True, null=True)
@@ -153,7 +153,7 @@ class Products(models.Model):
 
 
 class Region(models.Model):
-    regionid = models.SmallIntegerField(primary_key=True)
+    regionid = models.AutoField(primary_key=True)
     regiondescription = models.CharField(max_length=255)
 
     class Meta:
@@ -162,7 +162,7 @@ class Region(models.Model):
 
 
 class Shippers(models.Model):
-    shipperid = models.SmallIntegerField(primary_key=True)
+    shipperid = models.AutoField(primary_key=True)
     companyname = models.CharField(max_length=40)
     phone = models.CharField(max_length=24, blank=True, null=True)
 
@@ -172,7 +172,7 @@ class Shippers(models.Model):
 
 
 class Territories(models.Model):
-    territoryid = models.CharField(primary_key=True, max_length=20)
+    territoryid = models.AutoField(primary_key=True)
     territorydescription = models.CharField(max_length=255)
     region = models.ForeignKey(Region, models.DO_NOTHING, db_column='regionid')
 
@@ -182,7 +182,7 @@ class Territories(models.Model):
 
 
 class Usstates(models.Model):
-    stateid = models.SmallIntegerField()
+    stateid = models.AutoField(primary_key=True)
     statename = models.CharField(max_length=100, blank=True, null=True)
     stateabbr = models.CharField(max_length=2, blank=True, null=True)
     stateregion = models.CharField(max_length=50, blank=True, null=True)
