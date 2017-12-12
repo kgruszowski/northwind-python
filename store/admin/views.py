@@ -8,7 +8,6 @@ from .forms import CreateProductForm
 def index(request):
     all_products = Products.objects.all()
 
-
     context = {
         'products': all_products
     }
@@ -54,3 +53,19 @@ def product_add(request):
     }
 
     return render(request, 'product-add.html', context)
+
+
+def product_update(request, product_id):
+
+    product = Products.objects.get(pk=product_id)
+    form = CreateProductForm(request.POST or None, instance=product)
+
+    if form.is_valid():
+        form.save()
+        return redirect('product_list')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'product-update.html', context)
