@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from customers.models import Products
 from .forms import SubmitSearchForm
 from .forms import CreateProductForm
@@ -14,7 +15,7 @@ def index(request):
     return render(request, 'dashboard.html', context)
 
 
-def products(request):
+def products_list(request):
 
     form = SubmitSearchForm(request.GET)
 
@@ -25,7 +26,7 @@ def products(request):
     if data is not None:
         products = Products.objects.filter(productname__contains=data['name'])
     else:
-        products = Products.objects.all()
+        products = Products.objects.all().order_by('productid').reverse()
 
     context = {
         'form': form,
@@ -40,7 +41,10 @@ def create_product(request):
     if request.method == 'POST':
         form = CreateProductForm(request.POST)
         if form.is_valid():
-            new_product = form.save()
+            new_product = form.save(commit=False)
+            new_product.discontinued = 0
+            new_product.save()
+            return redirect('products_list')
     else:
         form = CreateProductForm()
 

@@ -1,4 +1,14 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+from __future__ import unicode_literals
+
 from django.db import models
+
 
 class Categories(models.Model):
     categoryid = models.AutoField(primary_key=True)
@@ -10,19 +20,22 @@ class Categories(models.Model):
         managed = False
         db_table = 'categories'
 
+    def __str__(self):
+        return self.categoryname
+
 
 class Customercustomerdemo(models.Model):
-    customer = models.ForeignKey('Customers', models.DO_NOTHING, db_column='customerid', primary_key=True)
-    customertype = models.ForeignKey('Customerdemographics', models.DO_NOTHING, db_column='customertypeid')
+    customerid = models.ForeignKey('Customers', models.DO_NOTHING, db_column='customerid', primary_key=True)
+    customertypeid = models.ForeignKey('Customerdemographics', models.DO_NOTHING, db_column='customertypeid')
 
     class Meta:
         managed = False
         db_table = 'customercustomerdemo'
-        unique_together = (('customer', 'customertype'),)
+        unique_together = (('customerid', 'customertypeid'),)
 
 
 class Customerdemographics(models.Model):
-    customertypeid = models.CharField(primary_key=True, max_length=5)
+    customertypeid = models.AutoField(primary_key=True)
     customerdesc = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -46,6 +59,16 @@ class Customers(models.Model):
     class Meta:
         managed = False
         db_table = 'customers'
+
+
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
 
 
 class Employees(models.Model):
@@ -74,18 +97,18 @@ class Employees(models.Model):
 
 
 class Employeeterritories(models.Model):
-    employee = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', primary_key=True)
-    territory = models.ForeignKey('Territories', models.DO_NOTHING, db_column='territoryid')
+    employeeid = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', primary_key=True)
+    territoryid = models.ForeignKey('Territories', models.DO_NOTHING, db_column='territoryid')
 
     class Meta:
         managed = False
         db_table = 'employeeterritories'
-        unique_together = (('employee', 'territory'),)
+        unique_together = (('employeeid', 'territoryid'),)
 
 
 class OrderDetails(models.Model):
-    order = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid', primary_key=True)
-    product = models.ForeignKey('Products', models.DO_NOTHING, db_column='productid')
+    orderid = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid', primary_key=True)
+    productid = models.ForeignKey('Products', models.DO_NOTHING, db_column='productid')
     unitprice = models.FloatField()
     quantity = models.SmallIntegerField()
     discount = models.FloatField()
@@ -93,13 +116,13 @@ class OrderDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'order_details'
-        unique_together = (('order', 'product'),)
+        unique_together = (('orderid', 'productid'),)
 
 
 class Orders(models.Model):
     orderid = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
-    employee = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', blank=True, null=True)
+    customerid = models.ForeignKey(Customers, models.DO_NOTHING, db_column='customerid', blank=True, null=True)
+    employeeid = models.ForeignKey(Employees, models.DO_NOTHING, db_column='employeeid', blank=True, null=True)
     orderdate = models.DateField(blank=True, null=True)
     requireddate = models.DateField(blank=True, null=True)
     shippeddate = models.DateField(blank=True, null=True)
@@ -116,29 +139,11 @@ class Orders(models.Model):
         managed = False
         db_table = 'orders'
 
-class Suppliers(models.Model):
-    supplierid = models.AutoField(primary_key=True)
-    companyname = models.CharField(max_length=40)
-    contactname = models.CharField(max_length=30, blank=True, null=True)
-    contacttitle = models.CharField(max_length=30, blank=True, null=True)
-    address = models.CharField(max_length=60, blank=True, null=True)
-    city = models.CharField(max_length=15, blank=True, null=True)
-    region = models.CharField(max_length=15, blank=True, null=True)
-    postalcode = models.CharField(max_length=10, blank=True, null=True)
-    country = models.CharField(max_length=15, blank=True, null=True)
-    phone = models.CharField(max_length=24, blank=True, null=True)
-    fax = models.CharField(max_length=24, blank=True, null=True)
-    homepage = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'suppliers'
-
 
 class Products(models.Model):
     productid = models.AutoField(primary_key=True)
     productname = models.CharField(max_length=40)
-    supplier = models.ForeignKey(Suppliers, models.DO_NOTHING, db_column='supplierid', blank=True, null=True)
+    supplier = models.ForeignKey('Suppliers', models.DO_NOTHING, db_column='supplierid', blank=True, null=True)
     category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='categoryid', blank=True, null=True)
     quantityperunit = models.CharField(max_length=20, blank=True, null=True)
     unitprice = models.FloatField(blank=True, null=True)
@@ -170,11 +175,36 @@ class Shippers(models.Model):
         managed = False
         db_table = 'shippers'
 
+    def __str__(self):
+        return self.companyname
+
+
+class Suppliers(models.Model):
+    supplierid = models.AutoField(primary_key=True)
+    companyname = models.CharField(max_length=40)
+    contactname = models.CharField(max_length=30, blank=True, null=True)
+    contacttitle = models.CharField(max_length=30, blank=True, null=True)
+    address = models.CharField(max_length=60, blank=True, null=True)
+    city = models.CharField(max_length=15, blank=True, null=True)
+    region = models.CharField(max_length=15, blank=True, null=True)
+    postalcode = models.CharField(max_length=10, blank=True, null=True)
+    country = models.CharField(max_length=15, blank=True, null=True)
+    phone = models.CharField(max_length=24, blank=True, null=True)
+    fax = models.CharField(max_length=24, blank=True, null=True)
+    homepage = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'suppliers'
+
+    def __str__(self):
+        return self.companyname
+
 
 class Territories(models.Model):
-    territoryid = models.AutoField(primary_key=True)
+    territoryid = models.CharField(primary_key=True, max_length=20)
     territorydescription = models.CharField(max_length=255)
-    region = models.ForeignKey(Region, models.DO_NOTHING, db_column='regionid')
+    regionid = models.ForeignKey(Region, models.DO_NOTHING, db_column='regionid')
 
     class Meta:
         managed = False
@@ -182,7 +212,7 @@ class Territories(models.Model):
 
 
 class Usstates(models.Model):
-    stateid = models.AutoField(primary_key=True)
+    stateid = models.SmallIntegerField()
     statename = models.CharField(max_length=100, blank=True, null=True)
     stateabbr = models.CharField(max_length=2, blank=True, null=True)
     stateregion = models.CharField(max_length=50, blank=True, null=True)

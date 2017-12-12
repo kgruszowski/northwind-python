@@ -16,4 +16,4 @@ class CreateProductForm(forms.ModelForm):
     class Meta:
         model = Products
         fields = ['productid', 'productname', 'supplier', 'category', 'quantityperunit', 'unitprice', 'unitsinstock', 'unitsonorder',
-                  'reorderlevel', 'discontinued']
+                  'reorderlevel']
