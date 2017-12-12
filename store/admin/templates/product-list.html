@@ -3,9 +3,9 @@
 {% block body %}
 <h1>
     Products in shop
-    <button class="btn btn-sm btn-success pull-right">
+    <a class="btn btn-sm btn-success pull-right" href="{% url 'product_add' %}">
         Add new product
-    </button>
+    </a>
 </h1>
 
 <form>{% csrf_token %}

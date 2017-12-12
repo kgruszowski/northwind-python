@@ -4,6 +4,7 @@ from customers.models import Products
 from .forms import SubmitSearchForm
 from .forms import CreateProductForm
 
+
 def index(request):
     all_products = Products.objects.all()
 
@@ -15,7 +16,7 @@ def index(request):
     return render(request, 'dashboard.html', context)
 
 
-def products_list(request):
+def product_list(request):
 
     form = SubmitSearchForm(request.GET)
 
@@ -33,10 +34,10 @@ def products_list(request):
         'products': products
     }
 
-    return render(request, 'products.html', context)
+    return render(request, 'product-list.html', context)
 
 
-def create_product(request):
+def product_add(request):
 
     if request.method == 'POST':
         form = CreateProductForm(request.POST)
@@ -44,7 +45,7 @@ def create_product(request):
             new_product = form.save(commit=False)
             new_product.discontinued = 0
             new_product.save()
-            return redirect('products_list')
+            return redirect('product_list')
     else:
         form = CreateProductForm()
 
@@ -52,4 +53,4 @@ def create_product(request):
         'form': form
     }
 
-    return render(request, 'create-product.html', context)
+    return render(request, 'product-add.html', context)

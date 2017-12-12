@@ -13,6 +13,11 @@ class SubmitSearchForm(forms.Form):
 
 class CreateProductForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(CreateProductForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = Products
         fields = ['productid', 'productname', 'supplier', 'category', 'quantityperunit', 'unitprice', 'unitsinstock', 'unitsonorder',

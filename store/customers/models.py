@@ -31,7 +31,7 @@ class Customercustomerdemo(models.Model):
     class Meta:
         managed = False
         db_table = 'customercustomerdemo'
-        unique_together = (('customerid', 'customertypeid'),)
+        unique_together = (('customer', 'customertype'),)
 
 
 class Customerdemographics(models.Model):
@@ -103,7 +103,7 @@ class Employeeterritories(models.Model):
     class Meta:
         managed = False
         db_table = 'employeeterritories'
-        unique_together = (('employeeid', 'territoryid'),)
+        unique_together = (('employee', 'territory'),)
 
 
 class OrderDetails(models.Model):
@@ -116,7 +116,7 @@ class OrderDetails(models.Model):
     class Meta:
         managed = False
         db_table = 'order_details'
-        unique_together = (('orderid', 'productid'),)
+        unique_together = (('order', 'product'),)
 
 
 class Orders(models.Model):
