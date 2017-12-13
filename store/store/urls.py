@@ -19,6 +19,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^store/', include('customers.urls')),
     url(r'^admin/', include('admin.urls')),
+    url('orders/', include('orders.urls')),
 ]
 
 if settings.DEBUG:
