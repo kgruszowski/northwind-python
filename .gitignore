@@ -102,3 +102,7 @@ ENV/
 
 #pyCharm
 .idea/
+
+#vim temporary files
+*.swp
+*~
