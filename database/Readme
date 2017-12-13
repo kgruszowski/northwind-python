@@ -1,0 +1,1 @@
+Northwind database dump must be restored as northwind_user. After restore dbFixes.sql script must be executed as northwind_user profile to fix no serial primary keys on tables where primay keys are integers.
