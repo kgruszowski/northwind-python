@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>Details of OrderNo: {{ orders.orderid }}</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Customer</th>
+      <th scope="col">Employee</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Ship via</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+            <td>{{ orders.customer.companyname }}</td>
+            <td>{{ orders.employee.firstname }} {{ order.employee.lastname }}</td>
+            <td>{{ orders.orderdate }}</td>
+            <td>{{ orders.shipvia }}</td>
+	    </tr>
+  </body>
+</table>
+
+<h2>Ordered Products:</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Cost</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in orders.orderdetails_set.all %}
+    <tr>
+            <td>{{ item.product.productname }}</td>
+	    <td>{{ item.quantity }} </td>
+            <td>{{ item.unitprice }}</td>
+	    <td>{{ total }}</td>
+	    </tr>
+	    {% endfor %}
+  </body>
+</table>
+
+
+{% endblock %}
