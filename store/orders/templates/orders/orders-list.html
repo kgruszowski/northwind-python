@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% block body %}
 <h1>
     Orders
@@ -15,14 +16,14 @@
   </thead>
   <tbody>
     {% for order in orders %}
-        <tr>
-            <td>{{ order.orderid }}</td>
-            <td>{{ order.customerid }}</td>
-            <td>{{ order.employeeid }}</td>
+    <tr>
+	    <td><a href="{{ order.orderid }}/">{{ order.orderid }}</a></td>
+            <td>{{ order.customer.companyname }}</td>
+            <td>{{ order.employee.firstname }} {{ order.employee.lastname }}</td>
             <td>{{ order.orderdate }}</td>
             <td>{{ order.shipvia }}</td>
-        </tr>
+	    </tr>
     {% endfor %}
-  </tbody>
+  </body>
 </table>
 {% endblock %}

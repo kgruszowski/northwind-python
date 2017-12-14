@@ -12,5 +12,9 @@ class IndexView(generic.ListView):
         context_object_name = 'orders'
 
         def get_queryset(self):
-            return Orders.objects.order_by('-orderid')
-# Create your views here.
+            return Orders.objects.order_by('orderid')[:5]
+
+class DetailView(generic.DetailView):
+        model = Orders
+        template_name = 'orders/detail.html'
+
