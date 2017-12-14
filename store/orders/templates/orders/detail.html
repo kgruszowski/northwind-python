@@ -27,8 +27,8 @@
     <tr>
       <th scope="col">Product Name</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Cost</th>
-      <th scope="col">Total</th>
+      <th scope="col">Unit Cost</th>
+      <th scope="col">Total Cost</th>
     </tr>
   </thead>
   <tbody>
@@ -36,12 +36,18 @@
     <tr>
             <td>{{ item.product.productname }}</td>
 	    <td>{{ item.quantity }} </td>
-            <td>{{ item.unitprice }}</td>
-	    <td>{{ total }}</td>
+            <td>{{ item.unitprice }} RUB</td>
+	    {% load orders_extras %}
+	    <td>{% multiply item.quantity item.unitprice %} RUB</td>
 	    </tr>
 	    {% endfor %}
+	    <tr>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td><b>{{ view.totalPrice }}</b> RUB</td>
+	    </tr>
   </body>
 </table>
-
 
 {% endblock %}
