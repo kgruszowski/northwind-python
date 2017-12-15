@@ -14,7 +14,6 @@ def index(request):
 
     return render(request, 'dashboard.html', context)
 
-
 def product_list(request):
 
     form = SubmitSearchForm(request.GET)
@@ -44,7 +43,7 @@ def product_add(request):
             new_product = form.save(commit=False)
             new_product.discontinued = 0
             new_product.save()
-            return redirect('product_list')
+            return redirect('admin:product_list')
     else:
         form = CreateProductForm()
 
@@ -62,7 +61,7 @@ def product_update(request, product_id):
 
     if form.is_valid():
         form.save()
-        return redirect('product_list')
+        return redirect('admin:product_list')
 
     context = {
         'form': form
