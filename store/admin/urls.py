@@ -1,6 +1,7 @@
 from django.urls import re_path, path
 from . import views
 
+app_name = 'admin'
 urlpatterns = [
     re_path(r'^$', views.index, name='admin_index'),
     re_path(r'^product/list', views.product_list, name='product_list'),

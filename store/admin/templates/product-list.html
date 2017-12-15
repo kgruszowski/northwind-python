@@ -3,7 +3,7 @@
 {% block body %}
 <h1>
     Products in shop
-    <a class="btn btn-sm btn-success pull-right" href="{% url 'product_add' %}">
+    <a class="btn btn-sm btn-success pull-right" href="{% url 'admin:product_add' %}">
         Add new product
     </a>
 </h1>
@@ -37,7 +37,7 @@
             <td>{{ product.unitsinstock }}</td>
             <td>{{ product.supplier.companyname }}</td>
             <td>
-                <a class="btn btn-primary" href="{% url 'product_update' product.productid %}">
+                <a class="btn btn-primary" href="{% url 'admin:product_update' product.productid %}">
                     Update
                 </a>
             </td>
