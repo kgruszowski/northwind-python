@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>
+    Orders
+</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">OrderNo</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Employee</th>
+      <th scope="col">Order Date</th>
+      <th scope="col">Ship via</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+	    <td><a href="{% url 'orders:detail' order.orderid %}">{{ order.orderid }}</a></td>
+            <td>{{ order.customer.companyname }}</td>
+            <td>{{ order.employee.firstname }} {{ order.employee.lastname }}</td>
+            <td>{{ order.orderdate }}</td>
+            <td>{{ order.shipvia }}</td>
+	    </tr>
+    {% endfor %}
+  </body>
+</table>
+{% endblock %}

@@ -25,7 +25,7 @@ SECRET_KEY = '152p2$x2-mz!n8o+9zl0&&cba))jrc1^v_@6(ov$$+fm5)6v!v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '127.0.0.1', 'localhost', '10.0.2.15' ]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     # Custom Apps
     'customers.apps.CustomersConfig',
+    'orders.apps.OrdersConfig',
     'admin.apps.AdminConfig',
     'debug_toolbar.apps.DebugToolbarConfig'
 ]

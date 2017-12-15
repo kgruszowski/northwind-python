@@ -44,7 +44,7 @@ class Customerdemographics(models.Model):
 
 
 class Customers(models.Model):
-    customerid = models.AutoField(primary_key=True)
+    customerid = models.TextField(primary_key=True)
     companyname = models.CharField(max_length=40)
     contactname = models.CharField(max_length=30, blank=True, null=True)
     contacttitle = models.CharField(max_length=30, blank=True, null=True)
