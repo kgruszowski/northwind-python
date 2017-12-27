@@ -1,5 +1,5 @@
 from django import forms
-from customers.models import Categories, Suppliers, Products
+from core.models import Categories, Suppliers, Products
 
 class SubmitSearchForm(forms.Form):
 

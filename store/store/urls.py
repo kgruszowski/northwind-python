@@ -17,9 +17,8 @@ from django.urls import include, re_path
 from django.conf import settings
 
 urlpatterns = [
-    re_path(r'^store/', include('customers.urls')),
-    re_path(r'^admin/', include('admin.urls')),
-    re_path('orders/', include('orders.urls')),
+    re_path(r'^products/', include('products.urls')),
+    re_path(r'^orders/', include('orders.urls')),
 ]
 
 if settings.DEBUG:

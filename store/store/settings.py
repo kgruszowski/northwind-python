@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Custom Apps
-    'customers.apps.CustomersConfig',
+    'core.apps.CustomersConfig',
     'orders.apps.OrdersConfig',
-    'admin.apps.AdminConfig',
+    'products.apps.AdminConfig',
     'debug_toolbar.apps.DebugToolbarConfig'
 ]
 
@@ -58,7 +58,9 @@ ROOT_URLCONF = 'store.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

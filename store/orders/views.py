@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.db.models import Sum
 
-from customers.models import Orders, Shippers, Suppliers 
+from core.models import Orders, Shippers, Suppliers
 
 
 class IndexView(generic.ListView):
