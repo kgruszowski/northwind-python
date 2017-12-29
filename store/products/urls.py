@@ -3,7 +3,8 @@ from . import views
 
 app_name = 'products'
 urlpatterns = [
-    re_path(r'^$', views.index, name='index'),
-    re_path(r'^add', views.add, name='add'),
-    re_path(r'^update/(\d+)', views.update, name='update')
+    re_path(r'^list$', views.listAll, name='list-all'),
+    re_path(r'^list2$', views.listAll2, name='list-all2'),
+    re_path(r'^add$', views.add, name='add'),
+    re_path(r'^update/(\d+)$', views.update, name='update')
 ]

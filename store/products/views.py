@@ -5,7 +5,7 @@ from .forms import SubmitSearchForm
 from .forms import CreateProductForm
 
 
-def index(request):
+def listAll(request):
     form = SubmitSearchForm(request.GET)
 
     data = None
@@ -16,6 +16,26 @@ def index(request):
         products = Products.objects.filter(productname__contains=data['name'])
     else:
         products = Products.objects.all().order_by('productid').reverse()
+
+    context = {
+        'form': form,
+        'products': products
+    }
+
+    return render(request, 'products/index.html', context)
+
+
+def listAll2(request):
+    form = SubmitSearchForm(request.GET)
+
+    data = None
+    if form.is_valid():
+        data = form.cleaned_data
+
+    if data is not None:
+        products = Products.objects.filter(productname__contains=data['name'])
+    else:
+        products = Products.objects.all().select_related()
 
     context = {
         'form': form,
