@@ -16,10 +16,11 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
         model = Orders
-        template_name = 'orders/detail.html'
+        template_name = 'orders/order_detail.html'
 
         def totalPrice(self):
             total = 0
             for i in self.get_object().orderdetails_set.values():
-                total += i.get('quantity') * i.get('unitprice')
-            return total
+                total += ( 1 - i.get('discount') ) * i.get('quantity') * i.get('unitprice')
+            return total + self.get_object().freight
+        

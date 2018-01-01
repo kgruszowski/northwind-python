@@ -28,24 +28,31 @@
       <th scope="col">Product Name</th>
       <th scope="col">Quantity</th>
       <th scope="col">Unit Cost</th>
+      <th scope="col">Discount</th>
       <th scope="col">Total Cost</th>
     </tr>
   </thead>
   <tbody>
     {% for item in orders.orderdetails_set.all %}
     <tr>
+	    {% load orders_extras %}
             <td>{{ item.product.productname }}</td>
 	    <td>{{ item.quantity }} </td>
             <td>{{ item.unitprice }} RUB</td>
-	    {% load orders_extras %}
-	    <td>{% multiply item.quantity item.unitprice %} RUB</td>
+	    <td>{% multiply2 item.discount 100 %} %</td>
+	    <td>{% substract 1 item.discount as discountFactor %} 
+                {% multiply3 item.quantity item.unitprice discountFactor %} RUB</td> 
 	    </tr>
-	    {% endfor %}
+    {% endfor %}
 	    <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		    <td><b>{{ view.totalPrice }}</b> RUB</td>
+		    <td>Freight cost</td>
+		    {% include "orders/orderRawColumns.html" %}
+		    <td>{{ orders.freight }} RUB</td>
+	    </tr>
+	    <tr>
+		    <td><b>TOTAL<b></td>
+		    {% include "orders/orderRawColumns.html" %}
+		    <td><b>{{ view.totalPrice|floatformat:2 }}</b> RUB</td>
 	    </tr>
   </body>
 </table>
