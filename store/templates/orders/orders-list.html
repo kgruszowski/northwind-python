@@ -17,7 +17,7 @@
   <tbody>
     {% for order in orders %}
     <tr>
-	    <td><a href="{% url 'orders:detail' order.orderid %}">{{ order.orderid }}</a></td>
+	    <td><a href="{% url 'orders:orderDetail' order.orderid %}">{{ order.orderid }}</a></td>
             <td>{{ order.customer.companyname }}</td>
             <td>{{ order.employee.firstname }} {{ order.employee.lastname }}</td>
             <td>{{ order.orderdate }}</td>
