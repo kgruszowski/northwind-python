@@ -32,8 +32,9 @@ class addOrder(FormView):
         success_url = '/orders/thanks/'
 
         def form_valid(self, form):
-#            return HttpResponseRedirect('../thanks/')
-            return HttpResponse("This is form content: " + form.cleaned_data['shipper'])
+            form.save()
+            return HttpResponseRedirect('../thanks/')
+#            return HttpResponse("This is form content: " + form.cleaned_data['shipper'].phone)
 
 #JUST FOR FORMS TUTORIAL, TO BE REMOVED
 #def addOrder(request):

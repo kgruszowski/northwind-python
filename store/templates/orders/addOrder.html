@@ -1,8 +1,22 @@
-{% extends "base.html" %}
+{% extends  "base.html" %}
 {% block body %}
+
 <form action="/orders/addOrder/" method="post">
 	{% csrf_token %}
-	{{ form }}
+<div class="row">
+	<table>
+	{{ form.as_table }}
+	</table>
+</div>
 	<input type="submit" value="Submit" />
 </form>
+<script type="text/javascript">
+            $(function () {
+		    $('#datetimepicker1').datetimepicker({
+	    inline: true,
+            sideBySide: true,
+            format: 'YYYY-MM-DD',
+				                });
+				                });
+        </script>
 {% endblock %}
