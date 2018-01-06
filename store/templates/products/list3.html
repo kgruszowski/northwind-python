@@ -32,14 +32,12 @@
         <tr class="{{ product.discontinued|yesno:'danger,success' }}">
             <td>{{ product.productid }}</td>
             <td>{{ product.productname }}</td>
-            <td>{{ product.category.categoryname }}</td>
+            <td>{{ product.categoryname }}</td>
             <td>{{ product.unitprice }}</td>
             <td>{{ product.unitsinstock }}</td>
-            <td>{{ product.supplier.companyname }}</td>
+            <td>{{ product.companyname }}</td>
             <td>
-                <a class="btn btn-primary" href="{% url 'products:update' product.productid %}">
-                    Update
-                </a>
+
             </td>
         </tr>
     {% endfor %}
