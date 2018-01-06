@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>
+    Products in shop
+    <a class="btn btn-sm btn-success pull-right" href="{% url 'products:add' %}">
+        Add new product
+    </a>
+</h1>
+
+<form>{% csrf_token %}
+  <div class="form-group col-md-11">
+      {{ form.name }}
+  </div>
+  <button type="submit" class="btn btn-primary col-md-1">Submit</button>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Units in stock</th>
+      <th scope="col">Supplier</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+        <tr class="{{ product.discontinued|yesno:'danger,success' }}">
+            <td>{{ product.productid }}</td>
+            <td>{{ product.productname }}</td>
+            <td>{{ product.category.categoryname }}</td>
+            <td>{{ product.unitprice }}</td>
+            <td>{{ product.unitsinstock }}</td>
+            <td>{{ product.supplier.companyname }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'products:update' product.productid %}">
+                    Update
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

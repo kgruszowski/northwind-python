@@ -23,7 +23,7 @@ def listAll(request):
         'products': products
     }
 
-    return render(request, 'products/index.html', context)
+    return render(request, 'products/list.html', context)
 
 
 def listAll2(request):
@@ -36,14 +36,14 @@ def listAll2(request):
     if data is not None:
         products = Products.objects.filter(productname__contains=data['name'])
     else:
-        products = Products.objects.all().select_related()
+        products = Products.objects.all().select_related('category', 'supplier').order_by('productid').reverse()
 
     context = {
         'form': form,
         'products': products
     }
 
-    return render(request, 'products/index.html', context)
+    return render(request, 'products/list2.html', context)
 
 
 def add(request):
