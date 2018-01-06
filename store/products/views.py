@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.http import Http404
 from core.models import Products
 from .forms import SubmitSearchForm
 from .forms import CreateProductForm
@@ -66,7 +67,11 @@ def add(request):
 
 def update(request, product_id):
 
-    product = Products.objects.get(pk=product_id)
+    try:
+        product = Products.objects.get(pk=product_id)
+    except Products.DoesNotExist:
+        raise Http404('Product does not exist')
+
     form = CreateProductForm(request.POST or None, instance=product)
 
     if form.is_valid():
@@ -74,6 +79,7 @@ def update(request, product_id):
         return redirect('products:product_list')
 
     context = {
+        'product': product,
         'form': form
     }
 
