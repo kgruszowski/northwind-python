@@ -7,7 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from __future__ import unicode_literals
 
-from django.db import models
+from django.db import models, connection
 
 
 class Categories(models.Model):
@@ -107,11 +107,12 @@ class Employeeterritories(models.Model):
 
 
 class OrderDetails(models.Model):
-    order = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid', primary_key=True)
+    order = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid')
     product = models.ForeignKey('Products', models.DO_NOTHING, db_column='productid')
     unitprice = models.FloatField()
     quantity = models.SmallIntegerField()
     discount = models.FloatField()
+    orderdetailid = models.AutoField(primary_key=True)
 
     class Meta:
         managed = False
@@ -155,6 +156,35 @@ class Products(models.Model):
     class Meta:
         managed = False
         db_table = 'products'
+
+    def dictfetchall(cursor):
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+        ]
+
+    def getProductsList(self):
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM products p'
+                           ' LEFT JOIN categories c ON p.categoryid = c.categoryid'
+                           ' LEFT JOIN suppliers s ON p.supplierid = s.supplierid'
+                           ' ORDER BY p.productid DESC')
+            rows = self.dictfetchall(cursor)
+        return rows
+
+    def searchProduct(self, productname):
+        print(productname)
+        with connection.cursor() as cursor:
+            sql = 'SELECT * FROM products p' \
+                  ' LEFT JOIN categories c ON p.categoryid = c.categoryid' \
+                  ' LEFT JOIN suppliers s ON p.supplierid = s.supplierid' \
+                  ' WHERE p.productname LIKE %s' \
+                  ' ORDER BY p.productid DESC'
+            args = ['%'+productname+'%']
+            cursor.execute(sql, args)
+            rows = self.dictfetchall(cursor)
+        return rows
 
 
 class Region(models.Model):
