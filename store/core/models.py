@@ -107,11 +107,12 @@ class Employeeterritories(models.Model):
 
 
 class OrderDetails(models.Model):
-    order = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid', primary_key=True)
+    order = models.ForeignKey('Orders', models.DO_NOTHING, db_column='orderid')
     product = models.ForeignKey('Products', models.DO_NOTHING, db_column='productid')
     unitprice = models.FloatField()
     quantity = models.SmallIntegerField()
     discount = models.FloatField()
+    orderdetailid = models.AutoField(primary_key=True)
 
     class Meta:
         managed = False
