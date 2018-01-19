@@ -1,23 +1,37 @@
 from django import forms
-from core.models import Shippers, Orders
-
+from core.models import Orders, OrderDetails
 from django.db import models
 from django.forms import ModelForm
 
-class addOrderForm(ModelForm):
-    class Meta:
-        model = Orders
-        fields = [ 'shipvia', 'customer', 'employee', 'orderdate', 'freight', 'shipname', 'shipaddress', 'shipcity', 'shipregion', 'shippostalcode', 'shipcountry' ]
-        widgets = {
-                'orderdate': forms.DateInput(attrs={'id': 'datetimepicker1'}),
-                }
-#class addOrderForm(forms.Form):
-    
-#        customer = forms.CharField(label='Your name', max_length=100)
-#        employee = forms.CharField(label='Your name', max_length=100)
-#        orderDay = forms.ChoiceField(choices=[(x, x) for x in range(1,31)])
-#        orderMonth = forms.ChoiceField(choices=[(x, x) for x in range(1,10)])
-#        orderYear = forms.ChoiceField(choices=[(x, x) for x in range(1,10)])
-#    
-#        shipper = forms.ModelChoiceField(queryset=Shippers.objects.get_queryset(),empty_label='Please choice shipper')
+class ProductForm(ModelForm):
+        class Meta:
+            model = OrderDetails
+            fields = [ 'product', 'unitprice', 'quantity', 'discount' ]
 
+        def __init__(self, *args, **kwargs):
+            super(ProductForm, self).__init__(*args, **kwargs)
+            for visible in self.visible_fields():
+                visible.field.widget.attrs['class'] = 'form-control'
+            for key in self.fields:
+                self.fields[key].required = True
+                
+class addOrderForm(ModelForm):
+        def __init__(self, *args, **kwargs):
+            super(addOrderForm, self).__init__(*args, **kwargs)
+            for visible in self.visible_fields():
+                visible.field.widget.attrs['class'] = 'form-control'
+            for key in self.fields:
+                self.fields[key].required = True
+
+        class Meta:
+            model = Orders
+            fields = [ 'shipvia', 'customer', 'employee', 'orderdate', 'freight', 'shipname', 'shipaddress', 'shipcity', 'shipregion', 'shippostalcode', 'shipcountry' ]
+            DATEPICKER = {
+                'type': 'text',
+                'class': 'form-control',
+                'id': 'datetimepicker1'
+            }
+            
+            widgets = {
+                'orderdate': forms.DateInput(attrs=DATEPICKER)
+            }
