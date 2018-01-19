@@ -2,7 +2,11 @@
 {% block body %}
 <h1>
     Orders
+    <a class="btn btn-sm btn-success pull-right" href="{% url 'orders:orderAdd' %}">
+    Add new order
+    </a>
 </h1>
+
 
 <table class="table">
   <thead>

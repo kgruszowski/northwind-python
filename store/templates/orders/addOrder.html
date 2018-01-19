@@ -1,0 +1,49 @@
+{% extends  "base.html" %}
+{% block body %}
+
+<form action="/orders/addOrder/" method="post">
+	{% csrf_token %}
+	{{ f.management_form }}
+<table>
+<div class="form-group col-md-11">
+	{{ f.as_p }}
+</div>
+<script type="text/javascript">
+            $(function () {
+		    $('#datetimepicker1').datetimepicker({
+	    inline: true,
+            sideBySide: true,
+            format: 'YYYY-MM-DD',
+				                });
+				                });
+        </script>
+</div>
+</div>
+</table>
+<div id="form_set" class="form-group col-md-11" >
+	{{ fs.management_form }}
+		{% for form in fs.forms %}
+			{% for field in form %}
+				{% if field.name != 'orderdetailid' and field.name != 'order' %}
+					{{field.label_tag}} {{field}}{{field.errors}}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+</div>		
+
+<input type="button" value="Add Product" id="add_more" class="btn btn-primary col-md-5" />
+<div id="empty_form" style="display:none" class="form-group col-md-11 no_error" >
+	<!--	<table class='no_error'> -->
+		{{ fs.empty_form.as_p }}
+		<!--	       </table> -->
+</div>
+<script>
+	$('#add_more').click(function() {
+		var form_idx = $('#id_orderdetails_set-TOTAL_FORMS').val();
+		$('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+		$('#id_orderdetails_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+		});
+</script>
+	<input type="submit" value="Submit" class="btn btn-success col-md-5" />
+</form>
+{% endblock %}

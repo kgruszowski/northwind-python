@@ -60,6 +60,9 @@ class Customers(models.Model):
         managed = False
         db_table = 'customers'
 
+    def __str__(self):
+        return self.companyname
+
 
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
@@ -94,6 +97,9 @@ class Employees(models.Model):
     class Meta:
         managed = False
         db_table = 'employees'
+    
+    def __str__(self):
+        return self.title + ' ' + self.firstname + ' ' + self.lastname
 
 
 class Employeeterritories(models.Model):
@@ -185,6 +191,9 @@ class Products(models.Model):
             cursor.execute(sql, args)
             rows = self.dictfetchall(cursor)
         return rows
+
+    def __str__(self):
+        return self.productname
 
 
 class Region(models.Model):
