@@ -15,7 +15,7 @@ class IndexView(generic.ListView):
         context_object_name = 'orders'
 
         def get_queryset(self):
-            return Orders.objects.order_by('orderid')[:5]
+            return Orders.objects.order_by('orderid')
 
 class DetailView(generic.DetailView):
         model = Orders

@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Orders, OrderDetails
+from core.models import Orders, OrderDetails, Products
 from django.db import models
 from django.forms import ModelForm
 
@@ -14,6 +14,7 @@ class ProductForm(ModelForm):
                 visible.field.widget.attrs['class'] = 'form-control'
             for key in self.fields:
                 self.fields[key].required = True
+            self.fields['product'].queryset = Products.objects.filter(discontinued=0)
                 
 class addOrderForm(ModelForm):
         def __init__(self, *args, **kwargs):
