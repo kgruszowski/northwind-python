@@ -40,6 +40,9 @@
                 <a class="btn btn-primary" href="{% url 'products:update' product.productid %}">
                     Update
                 </a>
+                <a class="btn btn-danger" href="{% url 'products:remove' product.productid %}">
+                    Remove
+                </a>
             </td>
         </tr>
     {% endfor %}

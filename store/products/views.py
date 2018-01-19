@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
-from core.models import Products
+from core.models import Products, OrderDetails
 from .forms import SubmitSearchForm
 from .forms import CreateProductForm
 
@@ -108,3 +108,21 @@ def update(request, product_id):
     }
 
     return render(request, 'products/update.html', context)
+
+
+def remove(request, product_id):
+
+    try:
+        product = Products.objects.get(pk=product_id)
+
+        orders = OrderDetails.objects.filter(product=product.productid)
+
+        if not orders:
+            product.delete()
+        else:
+            Products.objects.filter(pk=product_id).update(discontinued=1)
+
+    except Products.DoesNotExist:
+        raise Http404('Product does not exist')
+
+    return redirect('products:list-all')
