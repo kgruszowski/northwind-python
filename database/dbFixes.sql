@@ -31,6 +31,6 @@ ALTER TABLE order_details DROP CONSTRAINT IF EXISTS pk_order_details;
 ALTER TABLE order_details DROP CONSTRAINT IF EXISTS uk_order_details;
 ALTER TABLE order_details DROP COLUMN IF EXISTS orderdetailid;
 CREATE SEQUENCE IF NOT EXISTS orderdetails_orderdetailid_seq;
-ALTER TABLE order_details ADD COLUMN IF NOT EXISTS orderdetailid INTEGER DEFAULT nextval('orderdetails_orderdetailid_seq'::regclass);
+ALTER TABLE order_details ADD COLUMN orderdetailid INTEGER DEFAULT nextval('orderdetails_orderdetailid_seq'::regclass);
 ALTER TABLE order_details ADD CONSTRAINT pk_order_details PRIMARY KEY (orderdetailid);
 ALTER TABLE order_details ADD CONSTRAINT uk_order_details UNIQUE (orderid, productid);
