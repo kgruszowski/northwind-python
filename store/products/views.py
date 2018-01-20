@@ -100,7 +100,7 @@ def update(request, product_id):
 
     if form.is_valid():
         form.save()
-        return redirect('products:product_list')
+        return redirect('products:list-all')
 
     context = {
         'product': product,
