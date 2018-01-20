@@ -19,6 +19,7 @@ from django.conf import settings
 urlpatterns = [
     re_path(r'^products/', include('products.urls')),
     re_path(r'^orders/', include('orders.urls')),
+    re_path(r'^report/', include('report.urls')),
 ]
 
 if settings.DEBUG:

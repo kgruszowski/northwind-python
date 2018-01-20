@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core.apps.CustomersConfig',
     'orders.apps.OrdersConfig',
     'products.apps.AdminConfig',
+    'report.apps.ReportConfig',
     'debug_toolbar.apps.DebugToolbarConfig'
 ]
 

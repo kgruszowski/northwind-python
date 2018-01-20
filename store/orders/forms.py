@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Orders, OrderDetails, Products
+from core.models import Orders, OrderDetails, Products, Suppliers
 from django.db import models
 from django.forms import ModelForm
 
@@ -36,3 +36,4 @@ class addOrderForm(ModelForm):
             widgets = {
                 'orderdate': forms.DateInput(attrs=DATEPICKER)
             }
+
