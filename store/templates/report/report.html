@@ -1,0 +1,26 @@
+{% extends  "base.html" %}
+{% block body %}
+
+<form action="/report/" method="post">
+	{% csrf_token %}
+	{{ f.management_form }}
+<div class="form-group col-md-11">
+	{{ f.as_p }}
+</div>
+<script type="text/javascript">
+            $(function () {
+		    $('#datetimepicker1').datetimepicker({
+	    inline: true,
+            sideBySide: true,
+            format: 'YYYY-MM-DD',
+				                });
+		    $('#datetimepicker2').datetimepicker({
+	    inline: true,
+            sideBySide: true,
+            format: 'YYYY-MM-DD',
+				                });
+				                });
+        </script>
+	<input type="submit" value="Submit" class="btn btn-success col-md-5" />
+</form>
+{% endblock %}
